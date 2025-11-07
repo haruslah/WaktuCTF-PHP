@@ -13,23 +13,26 @@ if(isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
     $sql = "SELECT * FROM users WHERE username = '$usernameEmail' OR email = '$usernameEmail'";
     $result = $conn->query($sql);
 
-    if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if(password_verify($password, $row['password_hash'])) {
-            $_SESSION['user'] = $row['id'];
-
-            echo "<script>alert('Welcome back, '". $row['username'] ."');</script>";
-            header("Location: index.php");
-            exit;
-        }
-
-        else {
-            echo "<script>
-                alert('Wrong username or password');
-                window.location.href = 'login.php';
-            </script>";
-        }
+   if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    if (password_verify($password, $row['password_hash'])) {
+        $_SESSION['user'] = $row['id'];
+        echo "<script>alert('Welcome back, {$row['username']}');</script>";
+        header("Location: index.php");
+        exit;
+    } else {
+        echo "<script>
+            alert('Wrong username or password');
+            window.location.href = 'login.php';
+        </script>";
     }
+} else {
+    echo "<script>
+        alert('Wrong username or password');
+        window.location.href = 'login.php';
+    </script>";
+}
+
 }
 ?>
 
