@@ -34,19 +34,19 @@ if ($result && $result->num_rows > 0) {
 }
 
 // get team name
-$team_sql = "SELECT t.team_name 
-             FROM teams t
-             INNER JOIN team_members tm ON tm.team_id = t.team_id
-             WHERE tm.user_id = '$userID'
-             LIMIT 1";
-$team_result = $conn->query($team_sql);
+// $team_sql = "SELECT t.team_name 
+//              FROM teams t
+//              INNER JOIN team_members tm ON tm.team_id = t.team_id
+//              WHERE tm.user_id = '$userID'
+//              LIMIT 1";
+// $team_result = $conn->query($team_sql);
 
-if ($team_result && $team_result->num_rows > 0) {
-    $team_row = $team_result->fetch_assoc();
-    $team_name = $team_row['team_name'];
-} else {
-    $team_name = "Unassigned";
-}
+// if ($team_result && $team_result->num_rows > 0) {
+//     $team_row = $team_result->fetch_assoc();
+//     $team_name = $team_row['team_name'];
+// } else {
+//     $team_name = "Unassigned";
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,7 +95,7 @@ if ($team_result && $team_result->num_rows > 0) {
                     <input type="email" name="email" value="<?php echo htmlspecialchars($row['email']); ?>"><br><br>
 
                     <p><strong>Join Date:</strong> <?php echo date("d/m/Y", strtotime($row['created_at'])); ?></p>
-                    <p><strong>Team:</strong> <?php echo htmlspecialchars($team_name); ?></p>
+                    <!-- <p><strong>Team:</strong> <?php echo htmlspecialchars($team_name); ?></p> -->
                     <p><strong>CTF Participated:</strong> <?php echo htmlspecialchars($row['ctf_joined']); ?></p>
 
                     <input type="submit" name="update" value="Update Profile" class="submit-update">

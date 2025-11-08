@@ -573,7 +573,7 @@ form textarea {
 }
 
 .ctf-register {
-    min-height: 130vh;
+    min-height: 110vh;
     display: flex;
     align-items: center;
     justify-content: center;

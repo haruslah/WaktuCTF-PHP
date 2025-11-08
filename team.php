@@ -111,7 +111,7 @@ if (isset($_POST['leave_team'])) {
 
     <section class="teams">
         <div class="team-card">
-            <h2>Team Management</h2>
+            <h1>TEAM MANAGEMENT</h1>
             <?php if (!empty($message)) echo "<p><b>$message</b></p>"; ?>
 
             <h3>Create a New Team</h3>
