@@ -24,7 +24,7 @@ if (isset($_GET['submit'])) {
     <meta charset="UTF-8">
     <meta title="viewport" content="width=device-width, initial-scale=1.0">
     <title>WaktuCTF</title>
-    <link rel="icon" href="/images/faviconwctf.png" type="image/png">
+    <link rel="icon" href="<?php echo BASE_URL; ?>/images/faviconwctf.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,9 +39,17 @@ if (isset($_GET['submit'])) {
             <p><a href="about.php">About</a></p>
             <?php 
                 if (isset($_SESSION['user'])) {
+                    $uid = $_SESSION['user'];
+                    $admQ = $conn->prepare("SELECT is_admin FROM users WHERE id = ?");
+                    $admQ->bind_param("i", $uid);
+                    $admQ->execute();
+                    $admR = $admQ->get_result()->fetch_assoc();
                     echo '<p><a href="profile.php">Profile</a></p>';
                     echo '<p><a href="team.php">Team</a></p>';
                     echo '<p><a href="logout.php">Logout</a></p>';
+                    if ($admR && (int)$admR['is_admin'] === 1) {
+                    echo '<p><a href="'.BASE_URL.'/admin/dashboard.php">Admin</a></p>';
+                    }
                 } else {
                     echo '<p><a href="login.php">Login</a></p>';
                 }

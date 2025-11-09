@@ -42,7 +42,7 @@ if(isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="icon" href="/images/faviconwctf.png" type="image/png">
+    <link rel="icon" href="<?php echo BASE_URL; ?>/images/faviconwctf.png" type="image/png">
 
     <link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -84,7 +84,7 @@ if (isset($_POST['leave_team'])) {
     <meta charset="UTF-8">
     <title>Teams - WaktuCTF</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="/images/faviconwctf.png" type="image/png">
+    <link rel="icon" href="<?php echo BASE_URL; ?>/images/faviconwctf.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
