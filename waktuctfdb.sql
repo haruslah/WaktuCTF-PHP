@@ -32,16 +32,15 @@ CREATE TABLE `ctf_events` (
   `title` varchar(100) NOT NULL,
   `date` date NOT NULL,
   `format` varchar(50) NOT NULL,
-  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ctf_events`
 --
 
-INSERT INTO `ctf_events` (`ctf_id`, `title`, `date`, `format`, `description`) VALUES
-(1, 'HackThePlanet', '2025-12-01', 'Jeopardy', 'Global cybersecurity challenge.'),
-(2, 'WebWarriors', '2025-12-10', 'Attack/Defense', 'Advanced web hacking CTF.');
+INSERT INTO `ctf_events` (`ctf_id`, `title`, `date`, `format`) VALUES
+(1, 'HackThePlanet', '2025-12-01', 'Jeopardy'),
+(2, 'WebWarriors', '2025-12-10', 'Attack/Defense');
 
 -- --------------------------------------------------------
 

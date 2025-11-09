@@ -14,7 +14,7 @@ if(isset($_POST['submit'])  && $_SERVER['REQUEST_METHOD'] === "POST") {
 
     if ($password !== $confirmPassword) {
         echo "<script>
-            alert('Your password is not match');
+            alert('Wrong password');
             window.location.href = 'register.php';
         </script>";
         exit;
@@ -27,7 +27,7 @@ if(isset($_POST['submit'])  && $_SERVER['REQUEST_METHOD'] === "POST") {
 
     if($result && $result->num_rows > 0) {
         echo "<script>
-            alert('username already exist');
+            alert('Username already exist');
             window.location.href = 'register.php';
         </script>";
     }

@@ -29,26 +29,47 @@ $team_sql = "SELECT t.team_name FROM teams t
 $team_result = $conn->query($team_sql);
 
 // Handle registration form
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $team = $_POST['team'];
-    $experience = $_POST['experience'];
-    $notify = isset($_POST['notify']) ? implode(", ", $_POST['notify']) : "";
-    $notes = $_POST['notes'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $userID  = (int)$userID;      // from session
+    $ctf_id  = isset($ctf_id) ? (int)$ctf_id : 0;
 
-    $check_sql = "SELECT * FROM user_ctf WHERE user_id=$userID AND ctf_id=$ctf_id";
-    $check_result = $conn->query($check_sql);
+    $team       = $_POST['team'] ?? '';
+    $experience = $_POST['experience'] ?? '';
+    $notify     = isset($_POST['notify']) ? implode(", ", $_POST['notify']) : '';
+    $notes      = $_POST['notes'] ?? '';
 
-    if ($check_result->num_rows > 0) {
+    // 1) Already registered?
+    $chk = $conn->prepare("SELECT 1 FROM user_ctf WHERE user_id = ? AND ctf_id = ?");
+    $chk->bind_param("ii", $userID, $ctf_id);
+    $chk->execute();
+    $chkRes = $chk->get_result();
+    if ($chkRes->num_rows > 0) {
         $message = "You already registered for this CTF!";
     } else {
-        $insert_sql = "INSERT INTO user_ctf (user_id, ctf_id, team_name, experience, notify, notes, joined_at) 
-                       VALUES ($userID, $ctf_id, '$team', '$experience', '$notify', '$notes', NOW())";
-        $conn->query($insert_sql);
+        // 2) Transaction: INSERT then UPDATE
+        $conn->begin_transaction();
 
-        $update_sql = "UPDATE users SET ctf_joined = ctf_joined + 1 WHERE id=$userID";
-        $conn->query($update_sql);
+        $ins = $conn->prepare("
+            INSERT INTO user_ctf (user_id, ctf_id, team_name, experience, notify, notes, joined_at)
+            VALUES (?, ?, ?, ?, ?, ?, NOW())
+        ");
+        $ins->bind_param("iissss", $userID, $ctf_id, $team, $experience, $notify, $notes);
 
-        $message = "Successfully registered for " . htmlspecialchars($ctf['title']) . "!";
+        if ($ins->execute()) {
+            $upd = $conn->prepare("UPDATE users SET ctf_joined = ctf_joined + 1 WHERE id = ?");
+            $upd->bind_param("i", $userID);
+            if ($upd->execute()) {
+                $conn->commit();
+                $message = "Successfully registered for " . htmlspecialchars($ctf['title']) . "!";
+            } else {
+                $conn->rollback();
+                $message = "Registration failed (update).";
+            }
+        } else {
+            $conn->rollback();
+            // helpful error while debugging; remove in production
+            $message = "Registration failed (insert): " . $ins->error;
+        }
     }
 }
 ?>

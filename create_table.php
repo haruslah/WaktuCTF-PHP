@@ -21,7 +21,6 @@ $tables[] = "CREATE TABLE IF NOT EXISTS ctf_events (
     title VARCHAR(100) NOT NULL,
     date DATE NOT NULL,
     format VARCHAR(50) NOT NULL,
-    description TEXT DEFAULT NULL
 )";
 
 // USER_CTF table
