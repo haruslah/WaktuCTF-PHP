@@ -705,7 +705,7 @@ input, select {
   flex-wrap: wrap;
   justify-content: center;
   gap: 40px;
-  background: url("https://ics-cert.kaspersky.com/wp-content/uploads/sites/27/2019/04/CTF_1.jpg") 
+  background: url("./images/CTF_1.jpg") 
               no-repeat center center / cover fixed;
   color: #000000;
   font-family: "Inter", sans-serif;
@@ -853,3 +853,135 @@ input, select {
 }
 
 /* === END TEAM PAGE STYLES === */
+
+/* === PROFILE PAGE STYLES === */
+
+.profile {
+  position: relative;
+  min-height: 100vh;
+  padding: 120px 20px 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(to bottom right, #ffffff, #ffffff);
+}
+
+/* Dark overlay for readability */
+.profile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: -1;
+}
+
+/* Profile Card */
+.profile-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+  text-align: left;
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+}
+
+.profile-card h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3rem;
+  color: red;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* Input Fields */
+.profile-card input[type="text"],
+.profile-card input[type="email"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  transition: border-color 0.25s ease;
+}
+
+.profile-card input[type="text"]:focus,
+.profile-card input[type="email"]:focus {
+  border-color: red;
+  outline: none;
+}
+
+/* Labels and Info */
+.profile-card label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.profile-card p {
+  color: #333;
+  font-size: 1rem;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.profile-card strong {
+  color: #000;
+}
+
+/* Success Message */
+.profile-card p[style*="color: green;"] {
+  color: #008000 !important;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Submit Button */
+.submit-update {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background-color: black;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.submit-update:hover {
+  background-color: rgb(0, 204, 255);
+  transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .profile-card {
+    padding: 25px;
+    max-width: 90%;
+  }
+
+  .profile-card h2 {
+    font-size: 2.2rem;
+  }
+
+  .submit-update {
+    font-size: 1rem;
+  }
+}
+
+/* === END PROFILE STYLES === */
